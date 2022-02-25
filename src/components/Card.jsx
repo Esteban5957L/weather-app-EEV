@@ -1,53 +1,49 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+import styles from './Card.module.css'
+import {IoCloseCircleOutline} from 'react-icons/io5'
+import CardTemp from './CardTemp';
+import icon_03d from '../assets/03d.png'
+import icon_09d from '../assets/09d.png'
 
 export default function Card({max,min,name,img,onClose}) {
 
   /* evalua si lo que ingresa en mi "onClose" es una funcion */
-  function handleOnClose(){
+  function handleOnClose(){ 
     if (typeof onClose === "function") onClose();
   }
   
   return (
-    <div>
-      <button onClick={handleOnClose}>x</button>
+    <div className={styles.card}>
+      <button className={styles.closeButton} onClick={handleOnClose}>
+        <IoCloseCircleOutline />  
+      </button>
 
-      <span>{name}</span>
-
-
-{/*   en este bloque se repite el mismop codigo.
-      Creamos una funcion que ingresando los valores ejecite lo mismo
-
-      <div>
-        <label>min</label>
-        <span>{min}</span>
-      </div>
-
-      <div>
-        <label>max</label>
-        <span>{max}</span>
-      </div> */}
+      <span className={styles.cityName}>{name}</span>
 
       <CardTemp label="Min" value={min}/>
       <CardTemp label="Max" value={max}/>
-
-      <img 
-      src={`http://openweathermap.org/img/wn/${img}@2x.png`} 
-      alt="icono del clima"
-      />
-
+      <WeatherIcon icon={img}/>
+     
     </div>
   );
 };
 
-/* funcion para la temperatura
-- toma valores del label y del value, 
-hace un destructuring para obtener los datos y directamente los retoma
-*/
-function CardTemp({label, value}){
-  return(
-    <div>
-        <label>{label}</label>
-        <span>{value}</span>
-      </div>
-  );
+function WeatherIcon({icon}){
+  switch(icon){
+    case '09d': return < img src={icon_09d} alt='	shower rain'/>;
+    default: return < img src={icon_03d} alt='scattered clouds'/>;
+  }
 }
+
+
+
+
+//-Testea el dato que me ingresa
+Card.propType = {
+  max:PropTypes.number,
+  min:PropTypes.number,
+  name:PropTypes.string,
+  img:PropTypes.string,
+  onClose:PropTypes.func,
+};
