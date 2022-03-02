@@ -3,7 +3,7 @@ import './App.css';
 import Cards from './components/Cards.jsx';
 import SearchBar from './components/SearchBar.jsx';
 
-const APIKEY = process.env.REACT_APP_WHEATER_API_KEY;
+const APIKEY = 'cf556410cbe7586eee4dba4575b443f9';
 
 function App() {
 
